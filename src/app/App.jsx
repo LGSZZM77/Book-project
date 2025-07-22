@@ -1,7 +1,7 @@
 import Header from "../widgets/Header";
 import Sidebar from "../widgets/Sidebar";
 import Footer from "../widgets/Footer";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
 import MyPage from "../pages/MyPage";
@@ -11,7 +11,7 @@ import Join from "../pages/Join";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <div className="flex flex-col min-h-screen">
         <Header />
         <Sidebar />
@@ -28,7 +28,7 @@ function App() {
 
         <Footer />
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

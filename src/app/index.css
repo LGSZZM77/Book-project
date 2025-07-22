@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-bg: var(--bg);
+  --color-text: var(--text);
+  --color-search-bg: var(--search-bg);
+  --color-search-text: var(--search-text);
+}
 
 @layer base {
   :root {
