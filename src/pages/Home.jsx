@@ -1,12 +1,7 @@
-function Home() {
-  return (
-    <>
-      <main>
-        <div>검색</div>
-        MainContent
-      </main>
-    </>
-  );
-}
+import React from "react";
+
+const Home = () => {
+  return <main>MainContent</main>;
+};
 
 export default Home;

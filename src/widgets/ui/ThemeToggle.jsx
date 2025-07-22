@@ -1,14 +1,20 @@
-import React from "react";
+import { useEffect } from "react";
+import useThemeStore from "../../shared/store/useThemeStore";
+import { Sun, Moon } from "lucide-react";
 
 function ThemeToggle() {
-  const toggleTheme = () => {
-    const root = document.documentElement;
-    const currentTheme = root.getAttribute("data-theme");
-    const newTheme = currentTheme === "light" ? "dark" : "light";
-    root.setAttribute("data-theme", newTheme);
-  };
+  const { theme, toggleTheme, setTheme } = useThemeStore();
 
-  return <button onClick={toggleTheme}>테마</button>;
+  useEffect(() => {
+    const initialTheme = document.documentElement.getAttribute("data-theme") || "light";
+    if (theme !== initialTheme) {
+      setTheme(initialTheme);
+    }
+  }, [theme, setTheme]);
+
+  const isDark = theme === "dark";
+
+  return <button onClick={toggleTheme}>{isDark ? <Moon /> : <Sun />}</button>;
 }
 
 export default ThemeToggle;

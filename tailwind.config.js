@@ -6,6 +6,8 @@ export default {
       colors: {
         bg: "var(--bg)",
         text: "var(--text)",
+        searchBg: "var(--search-bg)",
+        searchText: "var(--search-text)",
       },
     },
   },

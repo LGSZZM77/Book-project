@@ -16,14 +16,18 @@
     --gray900: #111827;
   }
 
-  [data-theme="light"] {
+  html[data-theme="light"] {
     --bg: white;
-    --text: var(--gray600);
+    --text: black;
+    --search-bg: var(--gray300);
+    --search-text: var(--gray800);
   }
 
-  [data-theme="dark"] {
-    --bg: black;
+  html[data-theme="dark"] {
+    --bg: var(--gray800);
     --text: var(--gray300);
+    --search-bg: var(--gray700);
+    --search-text: var(--gray400);
   }
 }
 
