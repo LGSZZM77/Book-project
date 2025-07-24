@@ -6,8 +6,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import MyPage from "../pages/MyPage";
 import Cart from "../pages/Cart";
-import Login from "../pages/Login";
-import Join from "../pages/Join";
 
 function App() {
   return (
@@ -21,8 +19,6 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/my" element={<MyPage />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/join" element={<Join />}></Route>
           </Routes>
         </div>
 

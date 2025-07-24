@@ -1,3 +1,4 @@
+@import "./reset.css";
 @import "tailwindcss";
 
 @theme {
@@ -23,34 +24,35 @@
 
   html[data-theme="light"] {
     --bg: white;
+    --modal-bg: hsla(0, 0%, 98%, 0.85);
     --text: black;
-    --search-bg: var(--gray300);
+    --search-bg: var(--gray100);
     --search-text: var(--gray800);
   }
 
   html[data-theme="dark"] {
     --bg: var(--gray800);
+    --modal-bg: hsla(0, 0%, 10%, 0.85);
     --text: var(--gray300);
     --search-bg: var(--gray700);
     --search-text: var(--gray400);
   }
 }
 
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  color: currentColor;
-  text-decoration: none;
-}
-
-li {
-  list-style: none;
-}
-
-button {
-  cursor: pointer;
+@layer utilities {
+  .bg-base {
+    background-color: var(--bg);
+  }
+  .text-base {
+    color: var(--text);
+  }
+  .bg-search {
+    background-color: var(--search-bg);
+  }
+  .text-search {
+    color: var(--search-text);
+  }
+  .bg-modal {
+    background-color: var(--modal-bg);
+  }
 }
