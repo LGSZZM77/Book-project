@@ -2,57 +2,49 @@
 @import "tailwindcss";
 
 @theme {
+  --color-primary: var(--primary);
+  --color-primary-muted: var(--primary-muted);
   --color-bg: var(--bg);
   --color-text: var(--text);
   --color-search-bg: var(--search-bg);
   --color-search-text: var(--search-text);
+  --color-modal-overlay: var(--modal-overlay);
+  --color-modal-left: var(--modal-left);
+  --color-muted: var(--muted);
 }
 
 @layer base {
   :root {
-    --gray50: #f9fafb;
-    --gray100: #f3f4f6;
-    --gray200: #e5e7eb;
+    --primary: #0e9f6e;
+    --primary-muted: #f3faf7;
+    --black-deep: #191919;
+    --black-soft: #232323;
+    --gray100: #f9fafb;
+    --gray200: #f3f4f6;
     --gray300: #d1d5db;
-    --gray400: #9ca3af;
-    --gray500: #6b7280;
-    --gray600: #4b5563;
-    --gray700: #374151;
-    --gray800: #1f2937;
-    --gray900: #111827;
+    --gray400: #bbbbbb;
+    --gray500: #9ca3af;
+    --gray600: #666666;
+    --gray700: #424242;
   }
 
   html[data-theme="light"] {
     --bg: white;
-    --modal-bg: hsla(0, 0%, 98%, 0.85);
     --text: black;
-    --search-bg: var(--gray100);
-    --search-text: var(--gray800);
+    --search-bg: var(--gray200);
+    --search-text: var(--gray700);
+    --modal-overlay: hsla(0, 0%, 90%, 0.6);
+    --modal-left: var(--gray100);
+    --muted: var(--gray700);
   }
 
   html[data-theme="dark"] {
-    --bg: var(--gray800);
-    --modal-bg: hsla(0, 0%, 10%, 0.85);
-    --text: var(--gray300);
-    --search-bg: var(--gray700);
+    --bg: var(--black-deep);
+    --text: white;
+    --search-bg: var(--black-soft);
     --search-text: var(--gray400);
-  }
-}
-
-@layer utilities {
-  .bg-base {
-    background-color: var(--bg);
-  }
-  .text-base {
-    color: var(--text);
-  }
-  .bg-search {
-    background-color: var(--search-bg);
-  }
-  .text-search {
-    color: var(--search-text);
-  }
-  .bg-modal {
-    background-color: var(--modal-bg);
+    --modal-overlay: hsla(0, 0%, 10%, 0.6);
+    --modal-left: var(--gray700);
+    --muted: var(--gray400);
   }
 }
