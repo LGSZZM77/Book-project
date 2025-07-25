@@ -21,7 +21,7 @@ function Header() {
                 </div>
               </a>
             </h1>
-            <div className="w-52 flex items-center gap-2 p-2 bg-search-bg text-search">
+            <div className="w-52 flex items-center gap-2 p-2 rounded-lg bg-search-bg text-search">
               <Search className="w-4 h-4" /> 검색
             </div>
           </div>

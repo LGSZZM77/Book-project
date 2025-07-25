@@ -11,40 +11,47 @@
   --color-modal-overlay: var(--modal-overlay);
   --color-modal-left: var(--modal-left);
   --color-muted: var(--muted);
+  --color-navbar-tab: var(--navbar-tab);
+  --color-main-bg: var(--main-bg);
 }
 
 @layer base {
   :root {
     --primary: #0e9f6e;
     --primary-muted: #f3faf7;
-    --black-deep: #191919;
-    --black-soft: #232323;
-    --gray100: #f9fafb;
-    --gray200: #f3f4f6;
-    --gray300: #d1d5db;
-    --gray400: #bbbbbb;
-    --gray500: #9ca3af;
-    --gray600: #666666;
-    --gray700: #424242;
+    --black-700: #323232;
+    --black-800: #232323;
+    --black-900: #191919;
+    --gray-100: #f9fafb;
+    --gray-200: #f3f4f6;
+    --gray-300: #d1d5db;
+    --gray-400: #bbbbbb;
+    --gray-500: #9ca3af;
+    --gray-600: #666666;
+    --gray-700: #424242;
   }
 
   html[data-theme="light"] {
-    --bg: white;
+    --bg: var(--gray-200);
     --text: black;
-    --search-bg: var(--gray200);
-    --search-text: var(--gray700);
+    --muted: var(--gray-700);
+    --search-bg: var(--gray-300);
+    --search-text: var(--gray-700);
     --modal-overlay: hsla(0, 0%, 90%, 0.6);
-    --modal-left: var(--gray100);
-    --muted: var(--gray700);
+    --modal-left: var(--gray-100);
+    --navbar-tab: var();
+    --main-bg: white;
   }
 
   html[data-theme="dark"] {
-    --bg: var(--black-deep);
+    --bg: var(--black-900);
     --text: white;
-    --search-bg: var(--black-soft);
-    --search-text: var(--gray400);
+    --muted: var(--gray-400);
+    --search-bg: var(--black-800);
+    --search-text: var(--gray-400);
     --modal-overlay: hsla(0, 0%, 10%, 0.6);
-    --modal-left: var(--gray700);
-    --muted: var(--gray400);
+    --modal-left: var(--gray-700);
+    --navbar-tab: var(--black-700);
+    --main-bg: var(--black-800);
   }
 }

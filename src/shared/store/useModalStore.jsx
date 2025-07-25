@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 const useModalStore = create((set) => ({
-  modalType: null, // 'login', 'join', null
+  modalType: null,
 
   openLogin: () => set({ modalType: "login" }),
   openJoin: () => set({ modalType: "join" }),
