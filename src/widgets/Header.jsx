@@ -5,9 +5,34 @@ import Modal from "../shared/ui/Modal";
 import LoginForm from "../features/auth/ui/LoginForm";
 import JoinForm from "../features/auth/ui/JoinForm";
 import AuthSwitch from "../features/auth/ui/AuthSwitch";
+import { supabase } from "../shared/api/supabaseClient";
+import { useEffect, useState } from "react";
 
 function Header() {
   const { modalType, closeModal, openLogin, openJoin } = useModalStore();
+  const [user, setUser] = useState(null);
+
+  async function checkLogin() {
+    const authInfo = await supabase.auth.getSession();
+    const session = authInfo.data.session;
+    setUser(session?.user ?? null);
+  }
+
+  async function logOut() {
+    const { error } = await supabase.auth.signOut();
+    checkLogin();
+  }
+
+  useEffect(() => {
+    checkLogin();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <>
@@ -27,7 +52,15 @@ function Header() {
           </div>
 
           <div className="flex gap-6 items-center">
-            <button onClick={openLogin}>로그인</button>
+            {user ? (
+              <button type="button" onClick={logOut}>
+                로그아웃
+              </button>
+            ) : (
+              <button type="button" onClick={openLogin}>
+                로그인
+              </button>
+            )}
             <ul className="flex gap-6">
               <li>
                 <a href="/my">
