@@ -26,7 +26,7 @@ const useAuth = () => {
       password,
     });
 
-    if (error) alert("로그인 문제가 발생했습니다.");
+    if (error) alert("입력하신 이메일 또는 비밀번호가 틀렸습니다.");
 
     if (data.user) {
       setUser(data.user);

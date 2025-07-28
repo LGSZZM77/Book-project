@@ -1,17 +1,19 @@
+import { useEffect } from "react";
 import { Book, Search, User, ShoppingCart } from "lucide-react";
 import LoginForm from "../features/auth/ui/LoginForm";
 import JoinForm from "../features/auth/ui/JoinForm";
 import AuthSwitch from "../features/auth/ui/AuthSwitch";
 import useAuth from "../features/auth/model/useAuth";
+import useAuthGate from "../features/auth/model/useAuthGate";
 import Modal from "../shared/ui/Modal";
 import ThemeToggle from "./ui/ThemeToggle";
 import useModalStore from "../shared/store/useModalStore";
 import useUserStore from "../shared/store/useUserStore";
-import { useEffect } from "react";
 
 function Header() {
   const { modalType, closeModal, openLogin, openJoin } = useModalStore();
   const { signOut, checkUser } = useAuth();
+  const authGate = useAuthGate();
   const { user, setUser, clearUser } = useUserStore();
 
   useEffect(() => {
@@ -45,14 +47,14 @@ function Header() {
             {user ? <button onClick={signOut}>로그아웃</button> : <button onClick={openLogin}>로그인</button>}
             <ul className="flex gap-6">
               <li>
-                <a href="/my">
+                <button onClick={() => authGate("/my")}>
                   <User />
-                </a>
+                </button>
               </li>
               <li>
-                <a href="/cart">
+                <button onClick={() => authGate("/cart")}>
                   <ShoppingCart />
-                </a>
+                </button>
               </li>
             </ul>
             <ThemeToggle />
