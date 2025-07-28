@@ -2,33 +2,23 @@ import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
 import useThemeStore from "../../../shared/store/useThemeStore";
 import useAuth from "../model/useAuth";
-import { useNavigate } from "react-router-dom";
-import useModalStore from "../../../shared/store/useModalStore";
 
 const AuthForm = ({ type }) => {
   const isLogin = type === "login";
   const theme = useThemeStore((state) => state.theme);
-  const navigate = useNavigate();
-  const closeModal = useModalStore((state) => state.closeModal);
-
-  const { signInWithEmail, signUpWithEmail, signInWithOAuth } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { signUp, signIn, OAuth } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      if (isLogin) {
-        await signInWithEmail(email, password);
-        closeModal();
-        navigate("/");
-      } else {
-        await signUpWithEmail(email, password);
-        alert("인증 메일이 발송되었습니다. 이메일을 확인하세요.");
-      }
-    } catch (err) {
-      alert(err.message);
+    if (isLogin) {
+      await signIn(email, password);
+    } else {
+      await signUp(email, password);
     }
   };
 
@@ -55,14 +45,14 @@ const AuthForm = ({ type }) => {
   return (
     <div className="flex flex-col gap-8">
       <h2 className="text-2xl font-bold">{isLogin ? "로그인" : "회원가입"}</h2>
-      <form className="flex flex-col gap-4 text-lg w-75" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-lg w-75">
         <input
           className="p-2 w-full border text-base border-muted"
           type="email"
           name="email"
-          placeholder="이메일을 입력하세요."
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          placeholder="이메일을 입력하세요."
           required
         />
         <div className="relative">
@@ -70,9 +60,9 @@ const AuthForm = ({ type }) => {
             className="p-2 w-full border text-base border-muted"
             type={showPassword ? "text" : "password"}
             name="password"
-            placeholder="비밀번호를 입력하세요."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="비밀번호를 입력하세요."
             required
           />
           <button
@@ -96,8 +86,7 @@ const AuthForm = ({ type }) => {
           return (
             <button
               key={idx}
-              type="button"
-              onClick={() => signInWithOAuth(provider)}
+              onClick={() => OAuth(provider)}
               aria-label={alt}
               className="w-10 h-10 flex items-center justify-center"
             >

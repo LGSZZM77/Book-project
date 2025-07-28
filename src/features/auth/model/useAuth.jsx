@@ -1,39 +1,71 @@
 import { supabase } from "../../../shared/api/supabaseClient";
+import useModalStore from "../../../shared/store/useModalStore";
+import useUserStore from "../../../shared/store/useUserStore";
 
 const useAuth = () => {
-  const signInWithOAuth = async (provider) => {
-    const { error } = await supabase.auth.signInWithOAuth({
+  const { setUser, clearUser } = useUserStore.getState();
+  const closeModal = useModalStore((state) => state.closeModal);
+
+  const signUp = async (email, password) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) alert("회원가입 문제가 발생했습니다.");
+
+    if (data.user && data.session) {
+      setUser(data.user);
+      closeModal();
+    }
+  };
+
+  const signIn = async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) alert("로그인 문제가 발생했습니다.");
+
+    if (data.user) {
+      setUser(data.user);
+      closeModal();
+    }
+  };
+
+  const OAuth = async (provider) => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: {
-        redirectTo: "http://localhost:5173/",
-      },
     });
-    if (error) throw new Error(error.message);
   };
 
-  const signUpWithEmail = async (email, password) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: "http://localhost:5173/",
-      },
-    });
-    if (error) throw new Error("회원가입 문제가 발생했습니다.");
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      clearUser();
+    }
   };
 
-  const signInWithEmail = async (email, password) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) throw new Error("로그인 문제가 발생했습니다.");
+  const checkUser = async () => {
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+
+    if (error) {
+      return null;
+    }
+
+    return session;
   };
 
   return {
-    signInWithOAuth,
-    signUpWithEmail,
-    signInWithEmail,
+    signUp,
+    signIn,
+    OAuth,
+    signOut,
+    checkUser,
   };
 };
 
