@@ -7,11 +7,8 @@ import MyPage from "../pages/MyPage";
 import Cart from "../pages/Cart";
 
 function AppContent() {
-  const location = useLocation();
-  const hideNavbar = ["/my", "/cart"].includes(location.pathname);
-
   return (
-    <Layout hideNavbar={hideNavbar}>
+    <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/my" element={<MyPage />} />

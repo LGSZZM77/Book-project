@@ -10,7 +10,7 @@ const Navbar = () => {
           <button
             key={item}
             onClick={() => setSelectedMenu(item)}
-            className={`px-4 py-1 rounded-md ${selectedMenu === item ? "bg-primary text-white" : "bg-navbar-tab"}`}
+            className={`px-4 py-1 font-bold ${selectedMenu === item ? "text-primary" : "text-text"} hover:text-primary`}
           >
             {item}
           </button>

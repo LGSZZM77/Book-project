@@ -5,14 +5,14 @@
   --color-primary: var(--primary);
   --color-primary-muted: var(--primary-muted);
   --color-bg: var(--bg);
+  --color-main-bg: var(--main-bg);
   --color-text: var(--text);
   --color-search-bg: var(--search-bg);
   --color-search-text: var(--search-text);
   --color-modal-overlay: var(--modal-overlay);
   --color-modal-left: var(--modal-left);
   --color-muted: var(--muted);
-  --color-navbar-tab: var(--navbar-tab);
-  --color-main-bg: var(--main-bg);
+  --color-tab: var(--navbar-tab);
 }
 
 @layer base {

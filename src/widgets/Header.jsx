@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Book, Search, User, ShoppingCart } from "lucide-react";
+import { Book, Search, User, ShoppingCart, LogOut, LogIn } from "lucide-react";
 import LoginForm from "../features/auth/ui/LoginForm";
 import JoinForm from "../features/auth/ui/JoinForm";
 import AuthSwitch from "../features/auth/ui/AuthSwitch";
@@ -9,12 +9,15 @@ import Modal from "../shared/ui/Modal";
 import ThemeToggle from "./ui/ThemeToggle";
 import useModalStore from "../shared/store/useModalStore";
 import useUserStore from "../shared/store/useUserStore";
+import useSearchStore from "../shared/store/useSearchStore";
+import Navbar from "../widgets/Navbar";
 
 function Header() {
-  const { modalType, closeModal, openLogin, openJoin } = useModalStore();
   const { signOut, checkUser } = useAuth();
   const authGate = useAuthGate();
+  const { modalType, closeModal, openLogin, openJoin } = useModalStore();
   const { user, setUser, clearUser } = useUserStore();
+  const { searchType, openSearch, closeSearch } = useSearchStore();
 
   useEffect(() => {
     checkUser().then((session) => {
@@ -29,8 +32,8 @@ function Header() {
   return (
     <>
       <div className="hidden md:flex bg-bg text-text justify-center w-full h-16">
-        <div className="flex max-w-screen-xl w-full h-full justify-between items-center">
-          <div className="flex gap-6 items-center">
+        <div className="flex max-w-screen-xl w-full h-full px-8">
+          <div className="flex gap-6 items-center  flex-1">
             <h1>
               <a href="/">
                 <div className="flex gap-4">
@@ -38,29 +41,42 @@ function Header() {
                 </div>
               </a>
             </h1>
-            <div className="w-52 flex items-center gap-2 p-2 rounded-lg bg-search-bg text-search">
-              <Search className="w-4 h-4" /> 검색
-            </div>
+          </div>
+          <div className="flex flex-3">
+            <Navbar />
           </div>
 
-          <div className="flex gap-6 items-center">
-            {user ? <button onClick={signOut}>로그아웃</button> : <button onClick={openLogin}>로그인</button>}
-            <ul className="flex gap-6">
-              <li>
-                <button onClick={() => authGate("/my")}>
-                  <User />
-                </button>
-              </li>
-              <li>
-                <button onClick={() => authGate("/cart")}>
-                  <ShoppingCart />
-                </button>
-              </li>
-            </ul>
+          <div className="flex gap-6 items-center justify-end flex-3">
+            <button onClick={openSearch}>
+              <Search />
+            </button>
+            {user ? (
+              <button onClick={signOut}>
+                <LogOut />
+              </button>
+            ) : (
+              <button onClick={openLogin}>
+                <LogIn />
+              </button>
+            )}
+            <button onClick={() => authGate("/my")}>
+              <User />
+            </button>
+            <button onClick={() => authGate("/cart")}>
+              <ShoppingCart />
+            </button>
             <ThemeToggle />
           </div>
         </div>
       </div>
+
+      {searchType && (
+        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-1/3 h-16 z-50">
+          <div className="w-full h-full bg-amber-300 rounded-md">
+            <button onClick={closeSearch}>닫기</button>
+          </div>
+        </div>
+      )}
 
       {modalType && (
         <Modal onClose={closeModal}>

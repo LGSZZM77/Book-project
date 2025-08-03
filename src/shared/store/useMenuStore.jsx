@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 const useMenuStore = create((set) => ({
-  menuItems: ["전체", "베스트", "만화", "소설", "IT/과학"],
-  selectedMenu: "전체",
+  menuItems: ["홈", "탐색", "커뮤니티"],
+  selectedMenu: "홈",
   setSelectedMenu: (menu) => set({ selectedMenu: menu }),
 }));
 
