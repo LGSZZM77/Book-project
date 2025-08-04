@@ -1,5 +1,6 @@
-import { useEffect } from "react";
-import { Book, Search, User, ShoppingCart, LogOut, LogIn } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Book, Search, User, ShoppingCart, LogOut, LogIn, X } from "lucide-react";
 import LoginForm from "../features/auth/ui/LoginForm";
 import JoinForm from "../features/auth/ui/JoinForm";
 import AuthSwitch from "../features/auth/ui/AuthSwitch";
@@ -19,6 +20,10 @@ function Header() {
   const { user, setUser, clearUser } = useUserStore();
   const { searchType, openSearch, closeSearch } = useSearchStore();
 
+  const searchRef = useRef(null);
+  const searchButtonRef = useRef(null);
+
+  // 인증 상태 초기화
   useEffect(() => {
     checkUser().then((session) => {
       if (session.user) {
@@ -28,6 +33,24 @@ function Header() {
       }
     });
   }, []);
+
+  // 검색창 닫기
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const searchEl = searchRef.current;
+      const searchButton = searchButtonRef.current;
+
+      if (searchEl && !searchEl.contains(event.target) && searchButton && !searchButton.contains(event.target)) {
+        closeSearch();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchType, closeSearch]);
 
   return (
     <>
@@ -47,7 +70,7 @@ function Header() {
           </div>
 
           <div className="flex gap-6 items-center justify-end flex-3">
-            <button onClick={openSearch}>
+            <button ref={searchButtonRef} onClick={openSearch}>
               <Search />
             </button>
             {user ? (
@@ -70,13 +93,37 @@ function Header() {
         </div>
       </div>
 
-      {searchType && (
-        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-1/3 h-16 z-50">
-          <div className="w-full h-full bg-amber-300 rounded-md">
-            <button onClick={closeSearch}>닫기</button>
-          </div>
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {searchType && (
+          <motion.div
+            ref={searchRef}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-10 left-1/2 transform -translate-x-1/2 w-1/4 h-12 z-50"
+          >
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+              // bg 수정하기
+              className="flex items-center w-full h-full bg-black text-white rounded-xl"
+            >
+              <div className="flex-6 h-full flex items-center text-lg">
+                <input
+                  type="text"
+                  placeholder="검색어를 입력하세요..."
+                  className="w-full h-full pl-4 border rounded-l-xl"
+                />
+              </div>
+              <div className="flex-1 h-full flex items-center justify-center border rounded-r-xl bg-tab">
+                <Search />
+              </div>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {modalType && (
         <Modal onClose={closeModal}>
