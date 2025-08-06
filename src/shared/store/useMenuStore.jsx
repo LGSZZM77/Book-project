@@ -1,9 +1,11 @@
 import { create } from "zustand";
 
 const useMenuStore = create((set) => ({
-  menuItems: ["홈", "탐색", "커뮤니티"],
-  selectedMenu: "홈",
-  setSelectedMenu: (menu) => set({ selectedMenu: menu }),
+  menuItems: [
+    { label: "홈", path: "/" },
+    { label: "탐색", path: "/explore" },
+    { label: "커뮤니티", path: "/community" },
+  ],
 }));
 
 export default useMenuStore;

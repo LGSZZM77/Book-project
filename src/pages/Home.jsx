@@ -2,8 +2,10 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const tabs = [
     { item: "trend", label: "인기" },
     { item: "comic", label: "만화" },
@@ -46,7 +48,9 @@ const Home = () => {
             {tabIcons[selectedTab].repeat(5)}
           </motion.div>
         </AnimatePresence>
-        <button className="text-text bg-bg px-4 py-2 mt-12">더보기</button>
+        <button onClick={() => navigate("/explore")} className="text-text bg-bg px-4 py-2 mt-12">
+          더보기
+        </button>
       </div>
     </div>
   );

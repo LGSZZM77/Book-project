@@ -5,6 +5,8 @@ import Layout from "./Layout";
 import Home from "../pages/Home";
 import MyPage from "../pages/MyPage";
 import Cart from "../pages/Cart";
+import Explore from "../pages/Explore";
+import Community from "../pages/Community";
 
 function AppContent() {
   return (
@@ -13,6 +15,8 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/my" element={<MyPage />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/community" element={<Community />} />
       </Routes>
     </Layout>
   );

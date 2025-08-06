@@ -23,6 +23,8 @@ function Header() {
   const searchRef = useRef(null);
   const searchButtonRef = useRef(null);
 
+  const typingHints = ["클린 코드", "자바스크립트", "마운틴 듀"];
+
   // 인증 상태 초기화
   useEffect(() => {
     checkUser().then((session) => {
@@ -121,6 +123,16 @@ function Header() {
                 <Search />
               </div>
             </form>
+            <div className="relative top-1 w-full py-2 bg-amber-400">
+              {typingHints.map((item) => (
+                <div key={item} className="flex items-center mx-2 px-4 py-2.5 rounded-lg hover:bg-red-500">
+                  <span className="mr-3.5">
+                    <Search size={20} />
+                  </span>
+                  {item}
+                </div>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
