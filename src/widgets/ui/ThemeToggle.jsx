@@ -13,7 +13,21 @@ const ThemeToggle = () => {
   }, [theme, setTheme]);
 
   const isDark = theme === "dark";
-  return <button onClick={toggleTheme}>{isDark ? <Moon /> : <Sun />}</button>;
+  return (
+    <>
+      <button onClick={toggleTheme}>
+        {isDark ? (
+          <>
+            <Moon /> <span>다크</span>
+          </>
+        ) : (
+          <>
+            <Sun /> <span>라이트</span>
+          </>
+        )}
+      </button>
+    </>
+  );
 };
 
 export default ThemeToggle;

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { Book, Search, User, ShoppingCart, LogOut, LogIn, X } from "lucide-react";
 import LoginForm from "../features/auth/ui/LoginForm";
@@ -12,8 +13,11 @@ import useModalStore from "../shared/store/useModalStore";
 import useUserStore from "../shared/store/useUserStore";
 import useSearchStore from "../shared/store/useSearchStore";
 import Navbar from "../widgets/Navbar";
+import "./style/Header.css";
 
 function Header() {
+  const location = useLocation();
+
   const { signOut, checkUser } = useAuth();
   const authGate = useAuthGate();
   const { modalType, closeModal, openLogin, openJoin } = useModalStore();
@@ -56,9 +60,9 @@ function Header() {
 
   return (
     <>
-      <div className="hidden md:flex bg-bg text-text justify-center w-full h-16">
+      <div className="hidden md:flex bg-bg text-text justify-center items-center w-full h-20">
         <div className="flex max-w-screen-xl w-full h-full px-8">
-          <div className="flex gap-6 items-center  flex-1">
+          <div className="flex gap-6 items-center flex-1">
             <h1>
               <a href="/">
                 <div className="flex gap-4">
@@ -67,28 +71,39 @@ function Header() {
               </a>
             </h1>
           </div>
-          <div className="flex flex-3">
+          <div className="flex items-center flex-3">
             <Navbar />
           </div>
 
-          <div className="flex gap-6 items-center justify-end flex-3">
+          <div id="icon_btn" className="flex gap-4 items-center justify-end flex-3 text-sm [&_svg]:w-5 [&_svg]:h-5">
             <button ref={searchButtonRef} onClick={openSearch}>
               <Search />
+              <span>검색</span>
             </button>
             {user ? (
               <button onClick={signOut}>
                 <LogOut />
+                <span>로그아웃</span>
               </button>
             ) : (
               <button onClick={openLogin}>
                 <LogIn />
+                <span>로그인</span>
               </button>
             )}
-            <button onClick={() => authGate("/my")}>
+            <button
+              onClick={() => authGate("/my")}
+              className={location.pathname === "/my" ? "text-primary" : undefined}
+            >
               <User />
+              <span>마이</span>
             </button>
-            <button onClick={() => authGate("/cart")}>
+            <button
+              onClick={() => authGate("/cart")}
+              className={location.pathname === "/cart" ? "text-primary" : undefined}
+            >
               <ShoppingCart />
+              <span>카트</span>
             </button>
             <ThemeToggle />
           </div>

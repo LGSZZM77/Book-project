@@ -25,14 +25,16 @@ const Home = () => {
     <div className="flex flex-col items-center flex-1 pt-16">
       <div className="flex gap-4 text-text">
         {tabs.map(({ item, label }) => (
-          <motion.button
-            key={item}
-            onClick={() => setSelectedTab(item)}
-            className={`relative px-4 py-2 rounded-md ${item === selectedTab ? "bg-primary text-white" : "bg-tab"}`}
-            initial={false}
-          >
+          <button key={item} onClick={() => setSelectedTab(item)} className="flex flex-col gap-2">
+            <div
+              className={`relative px-3 py-3 rounded-md text-3xl ${
+                item === selectedTab ? "bg-primary text-white" : "bg-tab"
+              }`}
+            >
+              {tabIcons[item]}
+            </div>
             {label}
-          </motion.button>
+          </button>
         ))}
       </div>
       <div className="mt-16 h-40 flex flex-col items-end justify-center">

@@ -1,0 +1,10 @@
+#icon_btn > button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+}
+#icon_btn > button:hover {
+  color: var(--color-primary);
+}
