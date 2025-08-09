@@ -13,6 +13,7 @@ import useModalStore from "../shared/store/useModalStore";
 import useUserStore from "../shared/store/useUserStore";
 import useSearchStore from "../shared/store/useSearchStore";
 import Navbar from "../widgets/Navbar";
+import SearchBar from "./ui/SearchBar";
 import "./style/Header.css";
 
 function Header() {
@@ -26,8 +27,6 @@ function Header() {
 
   const searchRef = useRef(null);
   const searchButtonRef = useRef(null);
-
-  const typingHints = ["클린 코드", "자바스크립트", "마운틴 듀"];
 
   // 인증 상태 초기화
   useEffect(() => {
@@ -120,34 +119,7 @@ function Header() {
             transition={{ duration: 0.2 }}
             className="absolute top-10 left-1/2 transform -translate-x-1/2 w-1/4 h-12 z-50"
           >
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-              // bg 수정하기
-              className="flex items-center w-full h-full bg-black text-white rounded-xl"
-            >
-              <div className="flex-6 h-full flex items-center text-lg">
-                <input
-                  type="text"
-                  placeholder="검색어를 입력하세요..."
-                  className="w-full h-full pl-4 border rounded-l-xl"
-                />
-              </div>
-              <div className="flex-1 h-full flex items-center justify-center border rounded-r-xl bg-tab">
-                <Search />
-              </div>
-            </form>
-            <div className="relative top-1 w-full py-2 bg-amber-400">
-              {typingHints.map((item) => (
-                <div key={item} className="flex items-center mx-2 px-4 py-2.5 rounded-lg hover:bg-red-500">
-                  <span className="mr-3.5">
-                    <Search size={20} />
-                  </span>
-                  {item}
-                </div>
-              ))}
-            </div>
+            <SearchBar />
           </motion.div>
         )}
       </AnimatePresence>
