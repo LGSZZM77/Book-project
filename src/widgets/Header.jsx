@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Book, Search, User, ShoppingCart, LogOut, LogIn, X } from "lucide-react";
 import LoginForm from "../features/auth/ui/LoginForm";
@@ -17,7 +19,7 @@ import SearchBar from "./ui/SearchBar";
 import "./style/Header.css";
 
 function Header() {
-  const location = useLocation();
+  const pathname = usePathname();
 
   const { signOut, checkUser } = useAuth();
   const authGate = useAuthGate();
@@ -31,7 +33,7 @@ function Header() {
   // 인증 상태 초기화
   useEffect(() => {
     checkUser().then((session) => {
-      if (session.user) {
+      if (session && session.user) {
         setUser(session.user);
       } else {
         clearUser();
@@ -90,17 +92,11 @@ function Header() {
                 <span>로그인</span>
               </button>
             )}
-            <button
-              onClick={() => authGate("/my")}
-              className={location.pathname === "/my" ? "text-primary" : undefined}
-            >
+            <button onClick={() => authGate("/my")} className={pathname === "/my" ? "text-primary" : undefined}>
               <User />
               <span>마이</span>
             </button>
-            <button
-              onClick={() => authGate("/cart")}
-              className={location.pathname === "/cart" ? "text-primary" : undefined}
-            >
+            <button onClick={() => authGate("/cart")} className={pathname === "/cart" ? "text-primary" : undefined}>
               <ShoppingCart />
               <span>카트</span>
             </button>

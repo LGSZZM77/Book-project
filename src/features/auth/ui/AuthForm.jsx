@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
-import useThemeStore from "../../../shared/store/useThemeStore";
+import { useTheme } from "next-themes";
 import useAuth from "../model/useAuth";
 
 const AuthForm = ({ type }) => {
   const isLogin = type === "login";
-  const theme = useThemeStore((state) => state.theme);
+  const { theme } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("");
@@ -81,7 +81,7 @@ const AuthForm = ({ type }) => {
       <h4 className="text-xl font-bold text-muted">소셜 계정으로 {isLogin ? "로그인" : "회원가입"}</h4>
       <div className="flex justify-evenly">
         {socialButtons.map(({ provider, alt, lightSrc, darkSrc, src }, idx) => {
-          const imgSrc = theme && lightSrc && darkSrc ? (theme === "light" ? lightSrc : darkSrc) : src;
+          const imgSrc = theme === "light" ? lightSrc : theme === "dark" ? darkSrc : src;
 
           return (
             <button

@@ -1,10 +1,10 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { usePathname, useRouter } from "next/navigation";
 import useMenuStore from "../shared/store/useMenuStore";
 
 const Navbar = () => {
   const { menuItems } = useMenuStore();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="bg-bg text-text h-16 flex justify-center">
@@ -13,10 +13,10 @@ const Navbar = () => {
           <button
             key={item.label}
             onClick={() => {
-              navigate(item.path);
+              router.push(item.path);
             }}
             className={`px-4 py-1 font-bold ${
-              location.pathname === item.path ? "text-primary" : "text-text"
+              pathname === item.path ? "text-primary" : "text-text"
             } hover:text-primary`}
           >
             {item.label}

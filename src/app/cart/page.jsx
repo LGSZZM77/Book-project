@@ -1,19 +1,22 @@
-import { Check, HeartPlus, Trash2 } from "lucide-react";
-import useAddressStore from "../shared/store/useAddressStore";
+"use client";
 
-const Cart = () => {
+import { HeartPlus, Trash2 } from "lucide-react";
+import useAddressStore from "../../shared/store/useAddressStore";
+
+export default function Cart() {
   const address = useAddressStore((state) => state.address);
   const setAddress = useAddressStore((state) => state.setAddress);
 
   const execDaumPostcode = () => {
-    new daum.Postcode({
+    if (typeof window === "undefined" || !window.daum) return;
+
+    new window.daum.Postcode({
       oncomplete: (data) => {
         let addr = "";
         let extraAddr = "";
 
         if (data.userSelectedType === "R") {
           addr = data.roadAddress;
-
           if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
             extraAddr += data.bname;
           }
@@ -99,6 +102,4 @@ const Cart = () => {
       </div>
     </div>
   );
-};
-
-export default Cart;
+}

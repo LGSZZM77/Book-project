@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import useUserStore from "../../../shared/store/useUserStore";
 import useModalStore from "../../../shared/store/useModalStore";
 
 const useAuthGate = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { user } = useUserStore();
   const openLogin = useModalStore((state) => state.openLogin);
 
@@ -12,7 +12,7 @@ const useAuthGate = () => {
       alert("로그인 후 이용해주세요");
       openLogin();
     } else {
-      navigate(path);
+      router.push(path);
     }
   };
 };

@@ -1,18 +1,25 @@
-import { useEffect } from "react";
-import useThemeStore from "../../shared/store/useThemeStore";
+"use client";
+
+import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const ThemeToggle = () => {
-  const { toggleTheme, theme, setTheme } = useThemeStore();
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    const initialTheme = document.documentElement.getAttribute("data-theme") || "light";
-    if (theme !== initialTheme) {
-      setTheme(initialTheme);
-    }
-  }, [theme, setTheme]);
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
+  if (!mounted) return null;
 
   const isDark = theme === "dark";
+
   return (
     <>
       <button onClick={toggleTheme}>

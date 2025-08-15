@@ -1,16 +1,18 @@
-import Header from "../widgets/Header";
-import Sidebar from "../widgets/Sidebar";
-import Footer from "../widgets/Footer";
+import { ThemeProvider } from "next-themes";
+import PageLayout from "./PageLayout";
+import "./globals.css";
 
-const Layout = ({ children }) => {
+export default function RootLayout({ children }) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <Sidebar />
-      <main className="flex-1 flex bg-main-bg">{children}</main>
-      <Footer />
-    </div>
+    <html lang="ko" suppressHydrationWarning>
+      <head>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" async />
+      </head>
+      <body>
+        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={true}>
+          <PageLayout>{children}</PageLayout>
+        </ThemeProvider>
+      </body>
+    </html>
   );
-};
-
-export default Layout;
+}
